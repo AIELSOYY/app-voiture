@@ -1,39 +1,24 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
+import Mycars from './components/Mycars';
 import './App.css';
-import MyCars from './components/MyCars';
+import Welcome from './components/Welcome';
+import Maman from './components/Maman';
 
 class App extends Component {
-     
-  changeTitle = () =>{
-    this.setState({titre: 'Titre en dur'});
+
+  state = {
+    titre: 'Mon Catalogue Voitures'
   }
-  changeTitleParam = (newTitle) =>{
-    this.setState({titre:newTitle});
-  }
-  changeTitleBind = (newTitle) =>{
-    this.setState({titre:newTitle});
-  }
-  changeTitleInput = (e) =>{ //e stands for event
-    this.setState({titre:e.target.value});
-  }
-  state={
-    titre: 'Mon Catalogue Voiture',
-    color:'green'
-  }
-  
+
   render() {
     return (
-      <div className="App">
-        <MyCars title={this.state.titre} color={this.state.color}/>
-        <button onClick={this.changeTitle}>Changer le nom en dur</button>
-        <button onClick={() => this.changeTitleParam('Titre en paramètre')}>Changer le nom via paramètre</button>
-        <button onClick={this.changeTitleBind.bind(this, 'Titre en bind')}>Changer le nom via bind</button>
-        <p>input qui change le texte</p>
-        <input type="text" onChange={this.changeTitleInput} value={this.state.titre} />
-
+      <div className='App'>
+        <Mycars title={this.state.titre} />
+        <Welcome/>
+        <Maman/>
       </div>
-    );
+    )
   }
 }
+
 export default App;
-//Stop au petit rappel

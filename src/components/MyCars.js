@@ -1,45 +1,51 @@
-import React from 'react'
-import { Component } from 'react';
-import Car from './Cars';
-import Wrapper from './Wrapper';
-import MyHeader from './MyHeader';
-import '../index.css';
+import { Component } from 'react'
+import Car from './Cars'
 
+class Mycars extends Component {
 
-class MyCars extends Component {
-    
-    addStyle = (e) =>{
-        if(e.target.classList.contains('styled')){
-            e.target.classList.remove('styled');
-        }
-        else{
-            e.target.classList.add('styled');
-        }
+    state = {
+        voitures: [
+            {name: 'Ford', color: 'red', year: 2000},
+            {name: 'Mercedes', color: 'black', year: 2010},
+            {name: 'Peugeot', color: 'green', year: 2018}
+        ]
     }
-    noCopy = () => {
-        alert('Merci de ne pas copier le texte')
+
+    addTenYears = () => {
+
+        const updatedState = this.state.voitures.map((param) => {
+            return param.year -= 10;
+        })
+
+        this.setState({
+            updatedState
+        })
     }
-    state={
-        cars:["Ford","Mercedes","Peugeot"]
-    }
-    render(){
-        return(
+
+    render() {
+        const year = new Date().getFullYear();
+        return (
             <div>
-                <Wrapper>
-                    <MyHeader myStyle={this.props.color}>
-                        <h1 onMouseOver={this.addStyle}>{this.props.title}</h1>
-                    </MyHeader>
-                </Wrapper>
-                <Car color="red">{this.state.cars[0]}</Car>
-                <Car>{this.state.cars[1]}</Car>
-                <Car color ="green">{this.state.cars[2]}</Car>
-                <p onCopy={this.noCopy}>Lorem Ipsum</p>
-                <MyHeader myStyle={this.props.color}>
-                    Bonjour
-                </MyHeader>
-            </div>   
+                <h1>{this.props.title}</h1>
+
+                {/* <Car year={year - this.state.voitures[0].year + 'ans'}color={this.state.voitures[0].color}>{this.state.voitures[0].name}</Car>
+                <Car year={year - this.state.voitures[1].year + 'ans'}color={this.state.voitures[1].color}>{this.state.voitures[2].name}</Car>
+                <Car year={year - this.state.voitures[2].year + 'ans'}color={this.state.voitures[1].color}>{this.state.voitures[2].name}</Car> */}
+                
+                <button onClick={this.addTenYears}> + 10 ans</button>
+                {
+                    this.state.voitures.map(({name, color, year},index) => {
+                        return(
+                            <div key={index}>
+                                <Car color={color} year={year}>{name}</Car>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+           
         )
     }
-
 }
-export default MyCars;
+
+export default Mycars
